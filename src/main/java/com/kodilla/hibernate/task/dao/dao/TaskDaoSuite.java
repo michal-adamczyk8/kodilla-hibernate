@@ -1,6 +1,7 @@
-package com.kodilla.hibernate.com.kodilla.hibernate.task.dao;
+package com.kodilla.hibernate.task.dao.dao;
 
-import com.kodilla.hibernate.dao.TaskDao;
+import com.kodilla.hibernate.task.TaskFinancialDetails;
+import com.kodilla.hibernate.task.dao.TaskDao;
 import com.kodilla.hibernate.task.Task;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -52,5 +54,22 @@ public class TaskDaoSuite {
         //CleanUp
         int id = readTasks.get(0).getId();
         taskDao.deleteAll();
+    }
+
+    @Test
+    public void testTaskDaoSaveWithFinancialDetails() {
+        //Given
+        Task task = new Task(DESCRIPTION, 30);
+        task.setTaskFinancialDetails(new TaskFinancialDetails(new BigDecimal(120), false));
+
+        //When
+        taskDao.save(task);
+        int id =task.getId();
+
+        //Then
+        Assert.assertEquals(1, id);
+
+        //CleanUp
+        taskDao.deleteById(id);
     }
 }
