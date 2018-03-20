@@ -9,16 +9,16 @@ import java.util.List;
 @Table(name = "EMPLOYEES")
 public class Employee {
     private int id;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private List<Company> companies = new ArrayList<>();
 
     public Employee() {
     }
 
-    public Employee(String firstname, String lastname) {
-        this.firstname = firstname;
-        this.lastname = lastname;
+    public Employee(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     @Id
@@ -29,28 +29,30 @@ public class Employee {
         return id;
     }
 
-    @NotNull
-    @Column(name = "FIRSTNAME")
+
     public void setId(int id) {
         this.id = id;
     }
 
+
     @NotNull
-    @Column(name = "LASTNAME")
-    public String getFirstname() {
-        return firstname;
+    @Column(name = "FIRST_NAME")
+    public String getFirstName() {
+        return firstName;
     }
 
-    private void setFirstname(String firstname) {
-        this.firstname = firstname;
+    private void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    private String getLastname() {
-        return lastname;
+    @NotNull
+    @Column(name = "LAST_NAME")
+    private String getLastName() {
+        return lastName;
     }
 
-    private void setLastname(String lastname) {
-        this.lastname = lastname;
+    private void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @ManyToMany(cascade = CascadeType.ALL)
