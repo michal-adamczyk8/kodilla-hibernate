@@ -35,7 +35,7 @@ public class Employee {
     }
 
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
@@ -52,7 +52,7 @@ public class Employee {
 
     @NotNull
     @Column(name = "LAST_NAME")
-    private String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 

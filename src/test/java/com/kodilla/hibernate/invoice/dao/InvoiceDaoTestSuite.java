@@ -37,9 +37,18 @@ public class InvoiceDaoTestSuite {
         invoiceDao.save(invoice);
         int size = invoice.getItems().size();
         int id = invoice.getId();
+        String result1 = invoice.getItems().get(0).getProduct().getName();
+        String result2 = invoice.getItems().get(1).getProduct().getName();
+        String result3 = invoice.getItems().get(2).getProduct().getName();
+        String result4 = invoice.getItems().get(3).getProduct().getName();
+
 
         //Then
-        Assert.assertNotEquals(0, size);
+        Assert.assertEquals(4, size);
+        Assert.assertEquals(result1, "Milk");
+        Assert.assertEquals(result2, "Milk");
+        Assert.assertEquals(result3, "Eggs");
+        Assert.assertEquals(result4, "Eggs");
 
         //CleanUp
         invoiceDao.delete(id);

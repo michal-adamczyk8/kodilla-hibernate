@@ -94,14 +94,17 @@ public class CompanyDaoTestSuite {
         employeeDao.save(johnSmith);
         employeeDao.save(lindaKovalsky);
         employeeDao.save(stephanieClarckson);
-
-        //When
         List<Employee> employeesWithMatchingLastName = employeeDao.retrieveEmployeesWithLastName("Clarckson");
         List<Company> companiesWhoseNamesStartWith = companyDao.retrieveCompaniesWhoseNamesStartWith("Sof");
 
+        //When
+        String lastName = employeesWithMatchingLastName.get(0).getLastName();
+
+
         //Then
         Assert.assertEquals(1, employeesWithMatchingLastName.size());
-//        Assert.assertEquals(1, companiesWhoseNamesStartWith.size());
+        Assert.assertEquals(lastName, "Clarkson");
+        Assert.assertEquals(1, companiesWhoseNamesStartWith.size());
 
         //CleanUp
         employeeDao.delete(johnSmith);
