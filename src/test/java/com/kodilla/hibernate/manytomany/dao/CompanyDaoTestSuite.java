@@ -7,12 +7,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Rollback
+@Transactional
 public class CompanyDaoTestSuite {
     @Autowired
     CompanyDao companyDao;
@@ -98,22 +102,19 @@ public class CompanyDaoTestSuite {
         List<Company> companiesWhoseNamesStartWith = companyDao.retrieveCompaniesWhoseNamesStartWith("Sof");
 
         //When
+        Employee resultEmployee = employeesWithMatchingLastName.get(0);
         String lastName = employeesWithMatchingLastName.get(0).getLastName();
+        Company resultCompany = companiesWhoseNamesStartWith.get(0);
         String companyName = companiesWhoseNamesStartWith.get(0).getName();
+
 
         //Then
         Assert.assertEquals(1, employeesWithMatchingLastName.size());
+        Assert.assertEquals(resultEmployee, stephanieClarckson);
         Assert.assertEquals(lastName, "Clarckson");
         Assert.assertEquals(1, companiesWhoseNamesStartWith.size());
+        Assert.assertEquals(resultCompany, softwareMachine);
         Assert.assertEquals(companyName, "Software Machine");
 
-        //CleanUp
-        employeeDao.delete(johnSmith.getId());
-        employeeDao.delete(stephanieClarckson.getId());
-        employeeDao.delete(lindaKovalsky.getId());
-
-        companyDao.delete(greyMatter.getId());
-        companyDao.delete(dataMasters.getId());
-        companyDao.delete(softwareMachine.getId());
     }
 }

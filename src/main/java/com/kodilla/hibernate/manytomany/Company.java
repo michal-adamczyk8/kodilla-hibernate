@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 @NamedNativeQuery(
     name = "Company.retrieveCompaniesWhoseNamesStartWith",
-    query = "SELECT * FROM COMPANIES WHERE SUBSTR(COMPANY_NAME, 1, 3) = :START "
+    query = "SELECT * FROM COMPANIES WHERE SUBSTR(COMPANY_NAME, 1, 3) = :START ",
+         resultClass = Company.class
 )
 
 
