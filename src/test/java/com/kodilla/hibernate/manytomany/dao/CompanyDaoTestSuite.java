@@ -99,19 +99,21 @@ public class CompanyDaoTestSuite {
 
         //When
         String lastName = employeesWithMatchingLastName.get(0).getLastName();
-
+        String companyName = companiesWhoseNamesStartWith.get(0).getName();
 
         //Then
         Assert.assertEquals(1, employeesWithMatchingLastName.size());
-        Assert.assertEquals(lastName, "Clarkson");
+        Assert.assertEquals(lastName, "Clarckson");
         Assert.assertEquals(1, companiesWhoseNamesStartWith.size());
+        Assert.assertEquals(companyName, "Software Machine");
 
         //CleanUp
-        employeeDao.delete(johnSmith);
-        employeeDao.delete(lindaKovalsky);
-        employeeDao.delete(stephanieClarckson);
-        companyDao.delete(softwareMachine);
-        companyDao.delete(dataMasters);
-        companyDao.delete(greyMatter);
+        employeeDao.delete(johnSmith.getId());
+        employeeDao.delete(stephanieClarckson.getId());
+        employeeDao.delete(lindaKovalsky.getId());
+
+        companyDao.delete(greyMatter.getId());
+        companyDao.delete(dataMasters.getId());
+        companyDao.delete(softwareMachine.getId());
     }
 }
