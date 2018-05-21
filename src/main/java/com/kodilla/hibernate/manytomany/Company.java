@@ -4,13 +4,18 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-@NamedNativeQuery(
-    name = "Company.retrieveCompaniesWhoseNamesStartWith",
-    query = "SELECT * FROM COMPANIES WHERE SUBSTR(COMPANY_NAME, 1, 3) = :START ",
-         resultClass = Company.class
-)
-
-
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "Company.retrieveCompaniesWhoseNamesStartWith",
+                query = "SELECT * FROM COMPANIES WHERE SUBSTR(COMPANY_NAME, 1, 3) = :START ",
+                resultClass = Company.class
+        ),
+        @NamedNativeQuery(
+                name = "Company.retrieveCompaniesWhoseNamesContains",
+                query = "SELECT * FROM COMPANIES WHERE COMPANY_NAME LIKE %:pieceOfCompanyName% ",
+                resultClass = Company.class
+        )
+})
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
