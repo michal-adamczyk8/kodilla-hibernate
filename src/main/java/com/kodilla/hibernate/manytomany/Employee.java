@@ -7,12 +7,12 @@ import java.util.List;
 @NamedNativeQueries({
         @NamedNativeQuery(
                 name = "Employee.retrieveEmployeesWithLastName",
-                query = "SELECT * FROM EMPLOYEES WHERE lastName = :LASTNAME",
+                query = "SELECT * FROM EMPLOYEES WHERE LAST_NAME = :LASTNAME",
                 resultClass = Employee.class
         ),
         @NamedNativeQuery(
                 name = "Employee.retrieveEmployeesWhoseNamesContains",
-                query = "SELECT * FROM EMPLOYEES WHERE lastName LIKE %:pieceOfEmployeeName%",
+                query = "SELECT * FROM EMPLOYEES WHERE LAST_NAME LIKE CONCAT('%',:PIECEOFEMPLOYEENAME, '%') ",
                 resultClass = Employee.class
         )
 })

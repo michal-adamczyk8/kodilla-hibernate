@@ -12,7 +12,7 @@ import java.util.List;
         ),
         @NamedNativeQuery(
                 name = "Company.retrieveCompaniesWhoseNamesContains",
-                query = "SELECT * FROM COMPANIES WHERE COMPANY_NAME LIKE %:pieceOfCompanyName% ",
+                query = "SELECT * FROM COMPANIES WHERE COMPANY_NAME LIKE CONCAT('%',:PIECEOFCOMPANYNAME, '%' )",
                 resultClass = Company.class
         )
 })

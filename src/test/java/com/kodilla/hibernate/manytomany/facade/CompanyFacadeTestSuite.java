@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CompanyFacadeTestSuite {
@@ -20,16 +22,18 @@ public class CompanyFacadeTestSuite {
     @Autowired
     private EmployeeDao employeeDao;
 
+    @Autowired
+    private CompanyFacade companyFacade;
+
     @Test
-    public void testCompanydFacade() {
+    public void testCompanyFacade() {
         //Given
-        Employee employee1 = new Employee("Michał", "Adamczyk");
+        Employee employee1 = new Employee("Krzysztof", "Olejniczak");
         Employee employee2 = new Employee("Jan", "Kowalski");
         Employee employee3 = new Employee("Tony", "Soprano");
         Company company1 = new Company("Facebook");
         Company company2 = new Company("Mercer");
-        Company company3 = new Company("Kodilla");
-        CompanyFacade companyFacade = new CompanyFacade();
+        Company company3 = new Company("Adidas");
         employeeDao.save(employee1);
         employeeDao.save(employee2);
         employeeDao.save(employee3);
@@ -37,10 +41,17 @@ public class CompanyFacadeTestSuite {
         companyDao.save(company2);
         companyDao.save(company3);
         //When
-        int employeeResult = employeeDao.retrieveEmployeesWhoseNamesContains("dam").size();
-        int companyResult = companyDao.retrieveCompaniesWhoseNamesContains("book").size();
+        List<Employee> retrievedEmployees = companyFacade.lookForEmployees("lejnicz");
+        List<Company> retrievedCompanies = companyFacade.lookForCompanies("dida");
+        String nameOfRetrievedEmployee = retrievedEmployees.get(0).getLastName();
+        String nameOfRetrievedCompany = retrievedCompanies.get(0).getName();
+
         //Then
-        Assert.assertEquals(1, employeeResult);
-        Assert.assertEquals(1, companyResult);
+        Assert.assertEquals(1, retrievedCompanies.size());
+        Assert.assertEquals("Olejniczak", nameOfRetrievedEmployee);
+        Assert.assertEquals(1, retrievedEmployees.size());
+        Assert.assertEquals("Adidas", nameOfRetrievedCompany);
+        employeeDao.delete(employee1);
+        companyDao.delete(company3);
     }
 }
