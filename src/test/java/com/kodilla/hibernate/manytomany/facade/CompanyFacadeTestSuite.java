@@ -82,7 +82,7 @@ public class CompanyFacadeTestSuite {
         List<Employee> retrievedEmployees = companyFacade.lookForEmployees("lejnicz");
 
         //Then
-        Assert.assertNotEquals(1, retrievedEmployees.size());
+        Assert.assertEquals(0, retrievedEmployees.size());
     }
 
     @Test
@@ -99,6 +99,6 @@ public class CompanyFacadeTestSuite {
         List<Company> retrievedCompanies = companyFacade.lookForCompanies("dida");
 
         //Then
-        Assert.assertNotEquals(1, retrievedCompanies.size());
+        Assert.assertEquals(0, retrievedCompanies.size());
     }
 }
